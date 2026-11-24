@@ -153,6 +153,9 @@ h1, h2, h3 { font-family: var(--font-display); }
 .site-footer { padding: 27px 0 20px; background: #fff; }.footer-main { display: flex; align-items: center; justify-content: space-between; padding-bottom: 22px; }.footer-brand { font-size: 14px; }.footer-brand .brand-mark { width: 30px; height: 30px; font-size: 10px; }.footer-main > p { margin: 0; color: #9694a5; font-size: 10px; }.social-links { display: flex; gap: 8px; }.social-links a { width: 29px; height: 29px; display: grid; place-items: center; color: #706f83; background: #f7f7fb; border: 1px solid #efeff5; border-radius: 8px; font-size: 9px; font-weight: 700; transition: color .2s ease, background .2s ease; }.social-links a:hover { color: #fff; background: #755cda; }.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 15px; color: #a09eae; border-top: 1px solid #f0eff5; font-size: 9px; }.footer-heart { color: #d77c9d; }.footer-bottom a { color: #77748f; font-weight: 600; }.footer-placeholder { margin-top: 7px; margin-bottom: 0; color: #aaa8b6; text-align: right; font-size: 8px; }
 
 .reveal { opacity: 0; transform: translateY(19px); transition: opacity .65s ease, transform .65s ease; }.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.form-submit:disabled { cursor: wait; opacity: .7; }
+.form-notice.is-success { color: #26734d; border-left-color: #42a875; }
+.form-notice.is-error { color: #a2384c; border-left-color: #d45d70; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }.reveal { opacity: 1; transform: none; } }
 
 @media (max-width: 900px) {
@@ -279,6 +282,8 @@ body { color: var(--ink); background: #0b1120; }
 .form-field input[aria-invalid="true"], .form-field textarea[aria-invalid="true"] { border-color: #e27683; }
 .field-error { color: #ff9aa5; }
 .form-notice { color: #adbbce; background: #101b2c; border-left-color: #6da9e8; }
+.form-notice.is-success { color: #9de0b8; border-left-color: #58bc82; }
+.form-notice.is-error { color: #ff9aa5; border-left-color: #e27683; }
 
 .site-footer { color: #dfe7f1; background: #080e19; }
 .footer-main > p, .footer-bottom, .footer-placeholder { color: #8999af; }

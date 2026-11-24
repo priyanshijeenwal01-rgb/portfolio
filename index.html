@@ -207,13 +207,13 @@
       <div class="contact-orb orb-left"></div><div class="contact-orb orb-right"></div>
       <div class="container contact-grid">
         <div class="contact-copy reveal"><span class="section-kicker light-kicker">LET’S CONNECT</span><h2>Have a good idea?<br><span>Let’s make it real.</span></h2><p>I’m open to discussing thoughtful projects, collaborations, and new opportunities. Leave a note and let’s start a conversation.</p><div class="contact-details"><div class="contact-detail"><span class="detail-icon">✉</span><div><small>EMAIL</small><strong>Email address not provided</strong></div></div></div></div>
-        <form class="contact-form reveal" id="contact-form" novalidate>
+        <form class="contact-form reveal" id="contact-form" action="https://formspree.io/f/xppdogza" method="POST" novalidate>
           <h3>Send a message</h3><p class="form-intro">I’d love to hear what you have in mind.</p>
-          <div class="form-row"><div class="form-field"><label for="name">Your name</label><input id="name" name="name" type="text" autocomplete="name" placeholder="How should I address you?" required minlength="2" maxlength="80"><span class="field-error" id="name-error"></span></div><div class="form-field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254"><span class="field-error" id="email-error"></span></div></div>
+          <div class="form-row"><div class="form-field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" placeholder="How should I address you?" required minlength="2" maxlength="80" aria-describedby="name-error"><span class="field-error" id="name-error"></span></div><div class="form-field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254" aria-describedby="email-error"><span class="field-error" id="email-error"></span></div></div>
           <div class="form-field"><label for="subject">Subject <span class="optional">(optional)</span></label><input id="subject" name="subject" type="text" placeholder="What’s this about?" maxlength="120"></div>
-          <div class="form-field"><label for="message">Your message</label><textarea id="message" name="message" rows="4" placeholder="Tell me a little about your project..." required minlength="10" maxlength="3000"></textarea><span class="field-error" id="message-error"></span></div>
-          <button class="button button-primary form-submit" type="submit">Validate message <span aria-hidden="true">↗</span></button>
-          <p class="form-notice" id="form-notice" role="status">This form is a front-end demo only. A backend or form service must be connected to receive messages.</p>
+          <div class="form-field"><label for="message">Your message</label><textarea id="message" name="message" rows="4" placeholder="Tell me a little about your project..." required minlength="10" maxlength="3000" aria-describedby="message-error"></textarea><span class="field-error" id="message-error"></span></div>
+          <button class="button button-primary form-submit" type="submit"><span class="form-submit-label">Send message</span> <span aria-hidden="true">↗</span></button>
+          <p class="form-notice" id="form-notice" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>

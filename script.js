@@ -62,6 +62,8 @@ if (yearElement) yearElement.textContent = String(new Date().getFullYear());
 
 const form = document.querySelector("#contact-form");
 const formNotice = document.querySelector("#form-notice");
+const formSubmit = form ? form.querySelector(".form-submit") : null;
+const formSubmitLabel = form ? form.querySelector(".form-submit-label") : null;
 const fields = {
   name: {
     input: document.querySelector("#name"),
@@ -87,23 +89,70 @@ function validateField(field) {
   return !errorMessage;
 }
 
+function setFormNotice(message, state) {
+  formNotice.textContent = message;
+  formNotice.classList.remove("is-loading", "is-success", "is-error");
+  if (state) formNotice.classList.add(`is-${state}`);
+}
+
 if (form) {
+  let isSubmitting = false;
+
   Object.values(fields).forEach((field) => {
     field.input.addEventListener("input", () => {
       if (field.input.getAttribute("aria-invalid") === "true") validateField(field);
     });
   });
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (isSubmitting) return;
+
     const isValid = Object.values(fields).map(validateField).every(Boolean);
     if (!isValid) {
       const firstInvalid = form.querySelector('[aria-invalid="true"]');
       if (firstInvalid) firstInvalid.focus();
-      formNotice.textContent = "Please correct the highlighted fields. This demo does not send or store your message.";
+      setFormNotice("Please correct the highlighted fields before sending.", "error");
       return;
     }
 
-    formNotice.textContent = "Your message passes the form checks, but it has not been sent. Connect a backend or form service to receive messages.";
+    const formData = new FormData(form);
+    ["name", "email", "subject", "message"].forEach((fieldName) => {
+      const field = form.elements.namedItem(fieldName);
+      if (field && "value" in field) formData.set(fieldName, field.value.trim());
+    });
+
+    isSubmitting = true;
+    formSubmit.disabled = true;
+    form.setAttribute("aria-busy", "true");
+    formSubmitLabel.textContent = "Sending...";
+    setFormNotice("Sending your message securely...", "loading");
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" }
+      });
+
+      if (!response.ok) {
+        setFormNotice("Your message couldn't be sent. Please try again in a moment.", "error");
+        return;
+      }
+
+      form.reset();
+      Object.values(fields).forEach((field) => {
+        field.error.textContent = "";
+        field.input.removeAttribute("aria-invalid");
+      });
+      setFormNotice("Thanks for reaching out! Your message has been sent successfully.", "success");
+    } catch (error) {
+      setFormNotice("Unable to send your message right now. Check your connection and try again.", "error");
+    } finally {
+      isSubmitting = false;
+      formSubmit.disabled = false;
+      form.removeAttribute("aria-busy");
+      formSubmitLabel.textContent = "Send message";
+    }
   });
 }
